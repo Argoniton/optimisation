@@ -1,0 +1,428 @@
+Optimisation en dimension infinie
+
+\section{Introduction} % (fold)
+\label{cha:introduction}
+\\
+*- \textsc{Le Problème de Minimisation Classique} (P) $\inf_{u\in E}F(u)$ où $F:E->\R\cup\{+∞\}$. \\
+*- Un \textsc{Minimiser} de (P) est un element $\bar u\in E$ t.q.
+	\[F(\bar u)≤F(v)\ (\forall v \in E)\]
+*- Une suite minimisante de (P) est une suite $(u_n)$ dans E telle que
+	\[\lim_{n\to ∞}F(v_n)=\inf_{u\in E}F(u)\]
+
+% chapter introduction (end)
+
+\chapter{Espace Métrique complet $(E,d)$} % (fold)
+\label{cha:espace_metrique_complet_e_d}
+\section{Theoreme de Point \underline{Fixe}} % (fold)
+\label{sec:theoreme_de_point_underline_fixe}
+\begin{theorem}
+	Soit $φ:E->E$ une application strictement contractante i.e. il exists $θ \in [0,1[ $tel que pour tout $(u,v)\in E\times E$. Alors $φ$ possède un unique point fixe i.e. un $\bar u$ t.q. $\bar u=φ(\bar u)$.
+\end{theorem}
+
+\begin{proof}[L'idée de la démonstration]
+	Soit $u\in E$ et $(u_n)$ la suite dans $E$ définie par $u_0=u$ et $u_{n+1}=φ(u_n)$. On vérifie que $(u_n)$ satisfait au critère de Cauchy d'où l'existence:
+	
+	$q>p>N$\\ $d(u_p)≤d(u_p,u_{p+1})+...+d(u_{q-1},u_q)≤d(φ(u_{p-1}),φ(u_p))+...+d(φ(u_{q-2}),φ(u_{q-1}))≤θd(u_{p-1},u_p)+...≤θ^2d(u_{p-2},u_{p-1})≤θ^p(...)\to 0$
+	
+	Soit $\bar u_1$ et $\bar u_2$ deux points fixes
+	
+		\[d(\bar u_1,\bar u_2)=d(φ(\bar u_1,\bar u_2))≤θd(\bar u_1,\bar u_2)\]
+		donc $d(\bar u_1,\bar u_2)=0$ donc $\bar u_1=\bar u_2$
+\end{proof}
+% section theoreme_de_point_underline_fixe (end)
+
+\section{Theoreme de Fermés Emboités} % (fold)
+\label{sec:theoreme_de_fermes_emboites}
+\begin{theorem}
+	Soit $(F_n)$ une suite de \texttt{fermes}, \texttt{non vides} et telle que
+	\begin{itemize}
+		\item $F_{n+1}=F_n\ \forall n$
+		\item $diam(F_n)\to 0$
+	\end{itemize}
+	Alors  $\exists \bar u\in E$ telle que
+		\[\cap_n F_n=\{\bar u\}\]
+\end{theorem}
+\begin{proof}[L'idée de la démonstration]
+	Une suite $(u_n)$ dans $E$ telle que $u_n\in F_n\ \forall n$. Donc $\forall m,p≥n d(u_m,u_p)≤\diam{E_n}\to 0$. On vérifie que $(u_n)$ est une suite de Cauchy ce qui entraine qu'il existe $u\in E$.
+	
+	\[\cap_n F_n\supset\{u\}\]
+
+Le reste est evident (pour unicité: $d(\bar u_1,\bar u_2)≤\diam(E_n)\to 0)$.
+\end{proof}
+% section theoreme_de_fermes_emboites (end)
+\section{Théorème de Baire} % (fold)
+\label{sec:theoreme_de_baire}
+\begin{theorem}
+	Soit $(F_n)$ une suite de fermes de $E$. Si $E=\cup_n F_n$ alors l'un ou moins des fermés est d'intérieur non vide. I.e. $\exists n_0 \exists B(\bar u, r)$ avec $r>0$ $B(\bar u, r)\subset F_{n_0}$.
+\end{theorem}
+\begin{proof}[L'idée de la démonstration (par l'absurde)]
+	Si tous les fermés $F_n$ sont d'intérieur vide alors tous les ouverts $Ω_n:=E\setminus F_n$ est \texttt{dense} dans $E$. Donc $\exists (u_n)$ dans $E$, $\exists (r_n)$ dans $]0,+∞[$ tel que 
+	
+	\begin{align*}
+		\bar B(u_0,r_0)&\subset Ω_1\\
+		\bar B(u_{n+1},r_{n+1})&\subset B(u_n,r_n)\cap Ω_{n+1}\\
+		0<r_{n+1}<\frac{r_n}2
+	\end{align*}
+	
+	Or
+		\[\cap_n \bar B(u_n,r_n)\subset \cap_nΩ_n\]
+		
+	Comme d'après le theorem 1.2, il existe $\bar u\in E$ tel que
+		\[\{\bar u\}=\cap_n \bar B(u_n,r_n)\]
+	donc $\cap_n Ω_n≠ø$ donc $\cap_n F_n≠E$.
+\end{proof}
+% section theoreme_de_baire (end)
+\section{Définition et proposition} % (fold)
+\label{sec:definition-et-proposition}
+\begin{definition}
+	On dit $F:E->\R\cup\{+∞\} $est s.c.i. (semi-continue inférieurement) dans $E$ si pour tout $u$ et $(u_n)$ dans $E$
+		\[u_n\to u \implies \underline{\lim}_nF(u_n)≥F(u)\]
+\end{definition}
+\begin{proposition}
+	Le propositions suivantes sont equivalentes:
+	\begin{enumerate}
+		\item $F$ est s.c.i.
+		\item $\forall t\in\R\ \{F≤t\}$ est fermé
+		\item l'epigraph de $F$ est fermé dans $E\times\R$
+	\end{enumerate}
+\end{proposition}
+\begin{rappel}
+	\begin{itemize}
+		\item $\{F≤t\}=\{u\in E: F(u)≤t\}$
+		\item $\Epigraphe(F)=\{(u,t)\in E\times\R: F(u)≤t\}$
+	\end{itemize}
+\end{rappel}
+\begin{proof}
+	(1)=>(2) Soit $t\in\R$. Soient $u\in E$ et $(u_n)$ dans $\{F≤t\}$ tels que $u_n\to u$. Alors $F(u)≤\underline{\lim}_n\underbrace{F(u_n)}_{≤t}≤t$ donc $u\in\{F≤t\}$.
+	
+	(2)=>(3) Soient $(u,t)\in E\times\R$ et $((u_n,t_n))$ une suite dans $\Epigraphe(F)$ tels que $(u_n,t_n)\to (u,t)$. Soit $ε>0$, alors il existe $N\in\N$ tel que $\forall n≥N\ F(u_n)≤t_n≤t+ε$ i.e. $\forall n≥N\ u_n\in \{F≤t+ε\}$. D'après (2) $u\in\{F≤t+ε\}$.
+	
+	Ainsi $\forall ε>0\ F(u)≤t+ε$ donc $F(u)≤t$ donc $(u,t)\in \Epigraphe(F)$
+	
+	(3)=>(1)
+	Soient $u\in E$ et $(u_n)$ dans $E$ tels que $u_n\to u$.
+	\begin{enumerate}[1]
+		\item er cas. $\underline{\lim}_nF(u_n)=+∞$ -- évidant.
+		\item em cas. $\underline{\lim}_nF(u_n)=t\in\R$. Quitte à extraire un sous-suite on peut supposer que
+			\[\ulim_n F(u_n)=\lim_n F(u_n)=t\]
+			On a $(u_n,F(u_n))\in\Epigraphe(F)$ pour $n$ assez grand et converge vers $(u,t)$. D'après (3):
+				\[(u,t)\in\Epigraphe(F)\]
+			donc $F(u)≤t=\ulim_n F(u_n)$.
+		\item $\ulim_nF(u_n)=-∞$ => $F(u)=-∞$ (sinon $F(u)≤-∞$ ne pas possible) => ca jamais arrive % (à cogitez chez vous)
+	\end{enumerate}
+\end{proof}
+% section definition-et-proposition (end)
+\section{Théorème existence d'un minimiser} % (fold)
+\label{sec:theoreme_existence_d_un_minimiser}
+\begin{theorem}
+	Soit $F:E->\R\cup\{+∞\}$ s.c.i. où $E$ est compact, non vide. Alors le problème (P) $\inf_{u\in E}F(u)$  possède au moins une minimiseur.
+\end{theorem}
+\begin{proof}
+	\begin{enumerate}[1]
+		\item er cas. $F(u)=+∞$ pour tout $u\in E$.
+		\item em cas $\exists u_0\in E\ F(u_0)\in\R$. On choisit $(u_n)_{n≥1}$ une suite minimisante. Comme $E$ est compact on peut supposer que $(u_n)$ converge vers une certaine $\bar u\in E$.
+		  \[F(\bar u)≤\ulim_n F(u_n)=\inf_{n\in F}F(u)\]
+		  alors \[F(\bar u)=\inf_{u\in E}F(u).\]
+	\end{enumerate}
+\end{proof}
+\begin{remark}
+	Si au lieu de <<$E$ compact>> on introduit l'hypothèse $\exists t_0\in\R\ \{F≤t_0\}$ compact non vide. Alors la conclusion persiste. 
+\end{remark}
+% begin of a lecture February 1 2018 approximation
+\begin{proof}
+	Il restait à prouver que pour $F:E->\R\cup\{+∞\}$
+		\[\Epigraphe(F)\text{-- fermé} \ssi F \text{ est s.c.i.}\]
+	Soit $u_n\rightharpoonup u$. ($?\ulim_nF(u_n)≥F(u)$)
+	\begin{enumerate}[1]
+		\item er cas $\ulim_nF(u_n)=+∞$
+		\item ème cas $\ulim_nF(u_n)\in\R$ (déjà)
+		\item ème cas $\ulim_nF(u_n)=-∞$ (impossible) 
+	\end{enumerate}
+	On a:
+		\[F(u)\in\R\cup\{+∞\}.\]
+	On peut donc choisir \[t<F(u)\]
+	Sans perte de généralité, on peut supposer que $\ulim_nF(u_n)=\lim_nF(u_n)$. Donc $F(u_n)≤t$ pour $n$ assez grand i.e. $(u_n,t)\in \Epigraphe(F)$ pour $n$ assez grand. Comme $(u_n,t)->(u,t)$ et que l'épigraphe est fermé, on a $(u,t)\in\Epigraphe $donc $F(u)≤t$. On a une contradiction.
+\end{proof}
+% section theoreme_existence_d_un_minimiser (end)
+\section{Introduction au principe variationnel d'Ekeland} % (fold)
+\label{sec:introduction_au_principe_variationnel_d_ekeland}
+\begin{exercise}
+	Soit $F:\R->\R$ tel que $\inf_{u\in\R}F(u)\in\R$. Si $F$ est dérivable dans $\R$ alors il existe une suite $(u_n)$ telle que:
+	(1) $(u_n)$ est minimisante (2) $\lim_n F'(u_n)=0$.
+\end{exercise}
+
+\begin{theorem}[Ekeland, 1972]
+	Soit $F:E->\R\cup\{+∞\}$ t.q. $\inf_{u\in E}F(u)\in\R$. Soit $(u_n)$ une suite minimisante dans $E$. Alors il existe une suite $(\bar u_n)$ minimisante et une suite $(ε_n)$ dans $]0,+∞[$ telle que:
+	\begin{enumerate}
+		\item $ε_n\to 0$
+		\item $(\bar u_n)$ est minimisante
+		\item $d(u_n,\bar u_n)\to 0$
+		\item $F(v)+ε_nd(u_n,v)≥F(u_n)\ (\forall v)$
+	\end{enumerate}
+\end{theorem}
+
+Solution de l'exercice. D'après le THM, il existe $(\bar u_n)$ dans $\R$ et $(ε_n)$ dans $]0,+∞[$ t.q.:
+\begin{enumerate}
+	\item $ε_n\to 0$
+	\item $(\bar u_n)$ minimisante
+	\item $F(v)+ε_n|\bar u_n-v|≥F(\bar u_n)\ (\forall v\in\R)$
+\end{enumerate}
+	\[F(v)=F(\bar u_n+\underbrace{|v-\bar u_n|}_{t}\underbrace{\frac{v-\bar u_n}{|v-\bar u_n|})}_{h}\]
+	
+	\[\frac{F(v)-F(\bar u_n)}{|v-u_n|}≥-ε_n\ \forall v\]
+	\[\frac{F(\bar u_n+th)-F(\bar u_n)}{t}≥-ε_n\]
+	
+	Il résulte de (3) que $\forall t>0$ $\forall h$ avec $|h|=1$
+		\[\frac{F(\bar u_n+th)-F(\bar u_n)}t≥-ε_n.\]
+		
+En passant à la limite quand $t\to 0$. On obtient:
+	\[F'(\bar u_n)h≥-ε_n\ (\forall h\ |h|=1)\]
+	donc 
+		\[F'(u_n)≥-ε_n\text{ et }F'(u_n)≤ε_n\]
+	donc 
+		\[ |F'(u_n)|≤ε_n\to 0.\]
+		
+Pour démontrer la théorème, on commence par prouver le
+\begin{lemme}
+	Soit $F:E->\R\cup\{+∞\}$ s.c.i. et $\inf_E F\in\R$. Soit $u\in E$ tel que $F(u)\in\R$. Alors il existe $\bar u\in E$ satisfaisant à
+	\begin{enumerate}
+		\item $F(\bar u)+d(u,\bar u)≤F(u)$
+		\item $F(v)+d(\bar u,v)≥F(\bar u) \ (\forall v\in E)$
+	\end{enumerate}
+\end{lemme}
+ 
+ \begin{proof}[Démonstration du THM, avec le lemme]
+ 	Soit $(u_n)$ une suite minimisante. Soit $(ε_n)$ et $(λ_n)$ dans $]0,+∞[$ t.q. 
+	\begin{itemize}
+		\item $ε_n\to 0$
+		\item $λ_n\to 0$
+		\item $F(u_n)≤λ_nε_n+\inf_{v\in E}F(u)$
+	\end{itemize}
+	On applique le lemme (avec la distance $ε_nd$) on obtient l'existence de $(\bar u_n)$ telle que:
+	\begin{enumerate}
+		\item $F(\bar u_n)+ε_nd(u_n,\bar u_n)≤F(u_n)\ (\forall n)$
+		\item $F(v)+ε_nd(\bar u_n,v)≥F(u_n)\ (\forall n,\forall v)$
+	\end{enumerate}
+	Il est clair que $(\bar u_n)$ est minimisante.
+	D'autre part:
+		\[0≤F(u_n)-F(\bar u_n)≤\frac{F(u_n)-F(\bar u_n)}{ε_n}≤\frac{λ_nε_n}{ε_n}=λ_n\]
+		donc $d(u_n,\bar u_n)\to 0$.
+ \end{proof}
+ \begin{proof}[Démonstration du Lemme]
+	 Pour tout $w\in E$, on introduit
+	 	\[E(ω):=\{E(•)+d(ω,•)≤F(ω)\}\]
+		
+	Pour tout $ω$, l'ensemble $E(ω)$ est fermée (car $F(•)+d(ω,•)$ est s.c.i.) et non vide (car $ω\in E(ω)$).
+	
+	Soit $(u_n)$ une suite dans $E$ telle que:
+	\begin{itemize}
+		\item $u_0=u$
+		\item $u_{n+1}\in E(u_n)$
+		\item $F(u_{n+1})<\frac{1}{2^n}+\inf_{v\in E(u_n)}F(v)$
+	\end{itemize}
+	On vérifie alors que la suite:
+		\[(E(u_n))\]
+	vérifie les hypothéses du THM des fermés emboîtés. Donc il existe $\bar u\in E$ tel que
+		\[\{\bar u\}=\cap_n E(u_n)\text{ et }E\setminus\{\bar u\}=\cup_n(E\setminus E(u_n)).\]
+		
+		On a $\bar u\in E(u_0)=E(u)$ ce qui prouve (1). Soit $v\in E\setminus \{\bar u\}$. Alors il existe $N\in\N$ tel que
+		\[ \forall n≥N\quad v\in E\setminus E(u_n)\]
+		i.e.
+		\[ \forall n≥N\quad F(v)-d(u_n,v)>F(u_n)\]
+		
+	Comme $u_n\to\bar u$ et $F$ s.c.i. on en déduit que
+		\[F(v)+d(\bar u,v)≥F(\bar u)\]
+ \end{proof}
+ 
+ Vérification (en exo)
+ \begin{itemize}
+ 	\item $E(u_{n+1})\subset E(u_n)$. Soit $v\in E$, $v\in E(u_{n+1})$=>$F(v)+d(u_{n+1},v)≤F(u_{n+1}) $=> $F(v)+d(u_n,u_{n+1})+d(u_{n+1},v)≤F(u_{n+1})+d(u_{n+1},u)≤F(u_n)$ (car $u_{n+1}\in E(u_n)$) => $F(v)+d(u_n,v)≤F(u_n)$ => $F(v)+d(u_n,v)≤F(u_n)$ => $v\in E(u_n)$
+	
+	$\diam E=\sup_{a,b\in E}d(a,b)$
+	
+	$\diam E(u_{n+1})\to 0.$ Soit $v$ et $ω\in E(u_{n+1})$. On a donc
+	\begin{align*}
+		F(v)+d(u_{n+1},v)&≤F(u_{n+1})\\
+		F(ω)+d(u_{n+1},ω)&≤F(u_{n+1})		
+	\end{align*}
+	On a:
+	\begin{align*}
+		d(v,ω)&≤d(v,u_{n+1})+d(u_{n+1},ω)\\
+			&≤(F(u_{n+1})-F(u))+(F(u_{n+1})-F(ω))\\
+			&≤2(F(u_{n+1})-\inf_{u\in E(u_n)}F(u))\\
+			&≤\frac{2}{2^n}\to 0\ n\to ∞
+	\end{align*}
+	donc
+		\[\diam(E(u_{n+1}))≤\frac{2}{2^n}\to 0\]
+ \end{itemize}
+ 
+% section introduction_au_principe_variationnel_d_ekeland (end)
+% chapter espace_metrique_complet_e_d (end)
+
+\chapter{Optimisation dans un Hilbert (réel)} % (fold)
+\label{cha:optimisation_dans_un_hilbert_reel}
+\begin{notation}
+	$(H,\expval{•|•})$ et $\norm{u}^2=\ps uu$
+\end{notation}
+\section{Inégalité de C.S.B} % (fold)
+\label{sec:inegalite_de_c_s_b}
+$|\ps vv|≤\norm u\norm v$ ($\forall u,v\in H$)
+
+\begin{proof}
+	Supposons $u≠0$ et $v≠0$. Alors 
+		\[1±\frac{\ps uv}{\norm u\norm v}=\frac 12\norm{\frac{u}{\norm u}±\frac{v}{\norm{v}}}^2≥0\]
+		
+	d'où le résultat.
+\end{proof}
+\begin{exercise}
+	Pour tout $u\in H\setminus\{0\}$ on note
+	\[I(u)=\inf_{\norm v =1}\ps uv\]
+	\[S(u)=\sup_{\norm v=1}\ps uv\]
+	$I(u)$ possède un unique minimiseur qui est:
+	\[\bar v=-\frac{u}{\norm u}\]
+	donc $I(u)=\ps u{\bar v}=-\norm u$
+	
+	$S(u)$ possède un unique maximiseur qui est $\bar v=\frac{u}{\norm u}$ donc $S(u)=\norm u$.
+\end{exercise}
+% section inegalite_de_c_s_b (end)
+\section{THM de projection} % (fold)
+\label{sec:thm_de_projection}
+Soit $C$ un convexe fermée, non vide et $u\in H$. Alors le problème
+	\[I(u)=\inf_{v\in C}\norm{u-v}\]
+	possède un unique minimiseur que l'on note $P_C(u)$ C.N.O. $p\in H$ est le minimiseur ssi $\ps{u-p}{v-p}≤0\ (\forall v\in C)$.
+	
+\begin{proof}
+	Soit $(u_n)$ une suite minimisante i.e.
+	
+	$u_n\in C\text{ et } \norm{u-u_n}\to I(u)$. Il résulte de l'identité du parallélogramme que $(u_n)$ est une suite Cauchy donc $\exists \bar u\in \bar C\quad u_n\to \bar u$.
+	et $\norm{u-\bar u}=I(u)$ donc $\bar u$ solution.
+\end{proof} 
+% section thm_de_projection (end)
+
+\section{Problème de la projection orthogonale sur C où C est \texttt{convexe fermée non vide}} % (fold)
+\label{sec:probleme_de_la_projection_orthogonale_sur_c_ou_c_est_textsc_convexe_fermee_non_vide}
+\[\boxed{I(u):=\inf_{v\in C}\norm{v-u}}\]
+\begin{theorem}
+	Le probleme $I(u)$ admet un unique minimiseur $p\in H$ caracterisé par 
+	\begin{enumerate}
+		\item $p\in C$
+		\item $\ps{u-p}{v-p}≤0\ (\forall v\in C)$
+	\end{enumerate}
+\end{theorem}
+\begin{proof}
+	Existence d'un minimiseur. On a montrer que toute suite minimisante pu problème $I(u)$ convergeait vers un minimiseur de $I(u)$.
+	
+	Condition nécessaire d'optimalité (suffisante aussi).
+	
+	Soit $p$ un minimiseur de $I(u)$. Alors (1) est satisfaite. Notons
+		\[F(v):=\norm{v-u}^2\]
+	Alors $p$ est une minimiseur de $F$ sur $C$. Pour tout $v\in C\ \forall t\in]0,1]\ \frac{F(p+t(v-p))-F(p)}≥0$. C'est à dire $\forall t\in ]0,1]$:
+	
+	$F(p+t(x-p))-F(p)≤\norm{(p-u)+t(v-p)}^2-\norm{p-u}^2=2t\ps{p-u}{v-p}+t^2\norm{v-p}^2$
+	
+	=> $\forall t\in]0,1]\ 2\ps{p-u}{v-p}+t\norm{v-p}^2≥0$. En faisant $t\to 0^+$ on obtient (2).
+	
+	(<=) Soit $p\in H$ satisfaisant (1) et (2).
+	
+Soit $v\in C$. $F(v)-F(p)=\norm{v-u}^2-\norm{p-u}^2=\norm{(v-p)+(p-u)}^2-\norm{p-u}^2=\norm{v-p}^2+2\ps{v-p}{p-u}≥0$.
+
+\underline{Unicité du minimiseur}
+Soient $p_1$ et $p_2$ deux minimiseurs de $I(u)$. Alors 
+
+$\ps{v-p_1}{p_2-p_1}≤0$
+$\ps{u-p_2}{p_1-p_2}≤0$
+
+En sommant on obtient $\norm{p_2-p_1}^2≤0$ donc $p_1=p_2$.
+\end{proof}
+
+\begin{exercise}
+	(les propriété de l'opérateur de projection orthogonale sur C. où C est convexe ferme)
+		\[u\in H\overset{P_c}->P_c(u)\in C\]
+	\begin{enumerate}
+		\item $p$ est sur le bord
+		\item Si $u\in C$ alors P$_c(u)=u$
+		\item $\ps{P_c(u_2)-P_c(u_1)}{u_2-u_1}≥0$ (donc $P_c$ -- "monotone").
+		\item $\norm{P_c(u_2)-P_c(u_1)}≤\norm{u_2-u_1}$
+		\item L'opérateur $P_c$ est linéaire se et seulement si $C$ est un s.c.v
+\begin{remark}
+	si $C$ est un s.c.v alors:
+		\[p=P_c(u)\]
+	si et seulement si
+	$p\in C$ et $u-p\in C^\perp$.
+\end{remark}
+		\item si C à pour base orthonormée \{e_1,e_2,...,e_n\} Alors:
+		\[P_c(u)=∑_{i=1}^n\ps u{e_i}e_i\]
+		
+	\end{enumerate}
+\end{exercise}
+% section probleme_de_la_projection_orthogonale_sur_c_ou_c_est_textsc_convexe_fermee_non_vide (end)
+
+\section{Problème} % (fold)
+\label{sec:probleme}
+\begin{rappel}
+	$φ\in H'$ <- dual topologique $φ:H-> \R$ linéaire et continue. $\exists M \forall u\ |φ(u)|≤M\norm{u}$. Le petit $M$ est
+		\[M=\sup_{\norm{u}≤1}φ(u)=\norm{φ}_H\]
+\end{rappel}
+On note $H'$ la dual topologique de $H$, que l'on munit de la norme
+	\[\norm{φ}_X=\sup_{\norm{u}≤1}φ(u)\]
+
+Soit $φ\in H'$. On considère le problème:
+	\[I(φ)=\inf_{u\in H}\left\{\frac{\norm{u}^2}_2-φ(u)\}\]
+
+Une généralisation de la case de la minimisation de la parabole.
+
+\begin{theorem}[Riez-Fréchet]
+	Le problème $I(φ)$ possède une unique minimiseur $\bar u\in H$ caractérisé par
+	\[φ(v)=\ps{\bar u}{v}\quad (\forall v\in H)\]
+\end{theorem}
+
+\begin{proof}
+	Soit $(u_n)$ une suite minimisante du problème $I(φ)$ i.e.
+		\[\frac{\norm{u_n}^2}2-φ(u_n)\underset{n}{\to}I(φ)\]
+	
+	On montre (avec l'identité du parallélogramme) que $(u_n)$ est une suite de Cauchy des $H$ donc il existe $u\in H$ tel que
+		\[u_n\to u\text{ dans }H.\]
+		
+	Donc
+		\[\frac{\norm{\bar u}^2}2-φ(\bar u)=I(φ)\]
+		donc $\bar u$ est un minimiseur de $I(φ)$.
+		
+	Condition nécessaire d'optimalité:
+	
+	On note $F(u)=\frac{\norm{u}^2}{2}-φ(u)$.
+	
+	=> On suppose que $\bar u$ est une minimiseur. Alors pour $v\in H$:
+		\[\frac{F(\bar u+tv)-F(\bar u)}{t}≥0\]
+		i.e.
+		\[\forall t>0\quad φ(v)≤\ps{\bar u}{v}+\frac{t}{2}\norm{v}^2\]
+		
+		donc ($t\to 0^+$)
+			\[φ(v)≤\ps{\bar u}{v}\quad (\forall v\in H)\]
+			\[φ(v)≤\ps{\bar u}{v}\quad (\forall v\in H)\]
+	<= On suppose que $φ(u)=\ps{\bar u}{v}$ ($\forall v\in H$). Soit $v\in H$:	
+		\[F(v)-F(\bar u)=\frac{\norm{v}^2}2-\frac{\norm{\bar u}^2}{2}-φ(v)+φ(\bar u)=\frac{\norm{v}^2}2-\frac{\norm{\bar u}^2}{2}-\ps{\bar u|v}=\frac{\norm{v-\bar u}}2≥0\]
+		
+	Donc $\bar u$ est un minimiseur.
+	
+	Unicité du minimiseur de $I(φ)$. Soient $\bar u_1$ et $\bar u_2$ deux minimiseurs. Alors
+		\[\ps{\bar u_2}{v}-\ps{u_1}{v}=0\quad (\forall v\in H)\]
+		donc
+		\[\norm{\bar u_2-\bar u_1}=0\]
+		donc $\bar u_2=\bar u_1$.
+\end{proof}
+
+\begin{exercise}
+	On se place dans l'espace de Hilbert $L^2(Ω)$ ou $Ω$ ouvert de $\R^d$.
+	
+	\[C=\{u\in L^2(Ω):u≥0 p.p dans Ω\}\]
+	
+	\begin{enumerate}
+		\item Montrer que $C$ convexe fermé
+		\item Notons $\bar u$ la projection de $u$ sur $C$. Montrer que 
+			\[\bar u(x)=\max \{0,u(x)\}\]
+	\end{enumerate}
+\end{exercise}
+% section probleme (end)
+% chapter optimisation_dans_un_hilbert_reel (end)
+
+% end Alibert jean lecture February 6
